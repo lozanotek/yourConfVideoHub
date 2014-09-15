@@ -4,6 +4,8 @@
     using Microsoft.Owin.Cors;
     using Owin;
 
+    // http://www.asp.net/signalr/overview/signalr-20/hubs-api/hubs-api-guide-javascript-client#crossdomain
+
     public class Startup
     {
         public void Configuration(IAppBuilder app)
@@ -23,6 +25,7 @@
                     // versions of IE) require JSONP to work cross domain
                     EnableJSONP = true
                 };
+
                 // Run the SignalR pipeline. We're not using MapSignalR
                 // since this branch already runs under the "/signalr"
                 // path.
