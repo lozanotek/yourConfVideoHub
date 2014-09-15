@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>yourConf - Video Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="author" content="lozanotek, inc.">
+</head>
+<body>
+    <h2>yourConf Video Hub</h2>
+    <script type="text/javascript" src="/scripts/jquery-2.1.1.min.js"></script>   
+    <script type="text/javascript" src="/scripts/jquery.signalR-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/signalr/hubs"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var videoPlayer = $.connection.videoHub;
+
+            $.connection.hub.start().done(function () {
+                $('#playVideo').click(function () {
+                    var videoId = $("#videoList").val();
+                    videoPlayer.server.play(videoId);
+                });
+            });
+
+            $.connection.hub.disconnected(function () {
+                setTimeout(function () {
+                    $.connection.hub.start();
+                }, 5000);
+            });
+        });
+    </script>
+    <div class="well-sm">
+        <h2>Video Player</h2>
+        <select id="videoList" name="videoList">
+            <option value="D5zgH8DFBaQ">Placeholder</option>
+            <option value="B16Bo47KS2g">Guardians of the Galaxy</option>
+            <option value="eOrNdBpGMv8">Avengers</option>
+            <option value="7SlILk2WMTI">CA - Winter Soldier</option>
+        </select>
+        <button id="playVideo" class="btn btn-primary">Play Video</button>
+        <div id="syncMessage"></div>
+    </div>
+</body>
+</html>
